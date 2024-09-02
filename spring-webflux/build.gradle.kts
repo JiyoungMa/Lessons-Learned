@@ -1,24 +1,27 @@
 plugins {
-	kotlin("jvm") version "1.9.24"
-	kotlin("plugin.spring") version "1.9.24"
-	id("org.springframework.boot") version "3.3.2"
-	id("io.spring.dependency-management") version "1.1.6"
+	kotlin("jvm") version "1.5.21"
+	kotlin("plugin.spring") version "1.5.21"
+	id("org.springframework.boot") version "2.5.3"
+	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 }
 
 group = "com.lessons-learned"
 version = "0.0.1-SNAPSHOT"
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
-}
+
+apply(plugin = "idea")
+apply(plugin = "java")
+apply(plugin = "kotlin")
+apply(plugin = "kotlin-spring")
+apply(plugin = "org.springframework.boot")
+apply(plugin = "jacoco")
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
+	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
@@ -30,9 +33,10 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-kotlin {
-	compilerOptions {
-		freeCompilerArgs.addAll("-Xjsr305=strict")
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>{
+	kotlinOptions{
+		freeCompilerArgs=listOf("-Xjsr305=strict")
+		jvmTarget = "11"
 	}
 }
 
