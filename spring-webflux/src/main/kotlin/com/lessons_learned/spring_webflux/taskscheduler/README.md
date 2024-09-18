@@ -6,4 +6,5 @@
 
 ### To-be
 
-By searching, I discovered that ScheduledExecutorService 
+Through research, I discovered that `ScheduledExecutorService` must be shut down to properly terminate all scheduled tasks. Therefore, I tried a new approach using `ScheduledExecutorService` without relying on `customTaskScheduler`.
+
